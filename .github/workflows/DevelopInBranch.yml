@@ -15,4 +15,4 @@ jobs:
           echo "Workflow triggered by actor '${{ github.actor }}''."
       - uses: actions/checkout@v4.2.2
       - uses: devops-actions/actionlint@v0.1.3
-      - run: echo "${{ github.event.pull_request.title }}"
+      - run: echo "PR title is '${{ github.event.pull_request.title }}'."
