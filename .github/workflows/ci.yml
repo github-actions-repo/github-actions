@@ -1,0 +1,18 @@
+name: Action CI
+on: [push]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - name: Run my own container action
+        id: my-action
+        uses: ./
+        with:
+          who-to-greet: '@howsen82'
+      - name: Test the container
+        if: ${{ steps.my-action.outputs.answer != 42 }}
+        run: |
+            echo "::error file=entrypoint.sh,line=4,title=Error in container::The answer was not expected"
+            exit 1
