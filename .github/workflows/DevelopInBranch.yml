@@ -9,10 +9,10 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      # - run: |
-      #     echo "Workflow triggered in branch '${{ github.ref }}'."
-      #     echo "Workflow triggered by event '${{ github.event_name }}'."
-      #     echo "Workflow triggered by actor '${{ github.actor }}''."
+      - run: |
+          echo "Workflow triggered in branch '${{ github.ref }}'."
+          echo "Workflow triggered by event '${{ github.event_name }}'."
+          echo "Workflow triggered by actor '${{ github.actor }}''."
       # - uses: actions/checkout@v4.2.2
       # - uses: devops-actions/actionlint@v0.1.3
       # - run: echo "PR title is '${{ github.event.pull_request.title }}'."
@@ -21,3 +21,7 @@ jobs:
           echo "::notice::This is a notice message."
           echo "::warning::This is a warning message."
           echo "::error::This is an error message."
+      - run: |
+          echo "::notice file=.github/workflows/DevelopInBranch.yml,line=19,col=11,endColumn=51::There is a debug message that is not always visible!"
+          echo "::warning file=.github/workflows/DevelopInBranch.yml,line=19,endline=21::A lot of messages"
+          echo "::error title=Script Injection,file=.github/workflows/DevelopInBranch.yml,line=13,col=37,endColumn=68::Potential script injection"
