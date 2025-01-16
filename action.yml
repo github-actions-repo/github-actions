@@ -1,0 +1,23 @@
+name: 'Docker Action Recipe'
+description: 'Greet someone'
+
+branding:
+  icon: bell
+  color: purple
+author: 'Steven Leong'
+
+inputs:
+  who-to-greet:
+    description: 'Who to greet'
+    required: true
+    default: 'World'
+
+outputs:
+  answer:
+    description: 'The answer to everything (always 42)'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.who-to-greet }}
