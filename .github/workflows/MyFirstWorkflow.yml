@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - master
-      - 'release/**'
-    paths:
-      - 'doc/**'
+    #   - 'release/**'
+    # paths:
+    #   - 'doc/**'
   workflow_dispatch:
   # schedule:
   #   # Runs at every 15th minute
@@ -38,3 +38,25 @@ jobs:
       # - uses: actions/checkout@master
       # # Reference a specific commit
       # - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab
+  
+  Test:
+    runs-on: ubuntu-latest
+    environment: Test
+    needs: first_job
+    steps:
+      - run: |
+          echo "Hello ${{ vars.WHO_TO_GREET }}  from ${{ github.actor }}."
+          sec=$(echo ${{ secrets.MY_SECRET }} | sed 's/./& /g')
+          echo "My secret is  '$sec'."
+
+  Load-Test:
+    runs-on: ubuntu-latest
+    environment: Load-Test
+    needs: first_job
+
+  Production:
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://writeabout.net
+    needs: [Test, Load-Test]
