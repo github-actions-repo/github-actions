@@ -1,0 +1,21 @@
+name: Issue triage
+on:
+  issues:
+    types: [opened, edited]
+ 
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Label issue
+        run: |
+          if (contains(github.event.issue.body, 'bug')) {
+            echo '::add-labels: bug';
+          } else if (contains(github.event.issue.body, 'feature')) {
+            echo '::add-labels: feature';
+          } else {
+            echo 'Labeling issue as needs-triage';
+            echo '::add-labels: needs-triage';
+          }
